@@ -8,6 +8,8 @@ The first time I ran the game, the interface loaded correctly and allowed me to 
 
 Through Phase 1 investigation and Phase 2 repair, a total of **8 bugs** were identified and fixed. The three main bugs were: hint messages being reversed, difficulty ranges being swapped between Normal and Hard, and the Play Again button not properly resetting the game. Five additional bugs were discovered during Phase 2: the secret being converted to a string on even turns breaking comparisons, attempt limits being out of order, the hint text always displaying "1 and 100" regardless of difficulty, the attempt counter initializing to 1 instead of 0, and the scoring system incorrectly awarding points for wrong guesses on even turns.
 
+At the code level, the bugs were concentrated in four specific functions: `check_guess` in `app.py` contained the reversed hint messages and the string-cast on even turns (lines 37–47 and 158–161 in the original file); `get_range_for_difficulty` had Normal and Hard ranges swapped (lines 8–10); the `new_game` button handler was missing resets for `status`, `score`, and `history` (lines 134–138); and `update_score` incorrectly awarded `+5` points on even-numbered wrong guesses (lines 57–60). The attempt limit map and the hardcoded info text were inline values in `app.py` rather than inside functions.
+
 **Bug Reproduction Log**
 
 | Input | Expected Behavior | Actual Behavior | Console Output / Error |
