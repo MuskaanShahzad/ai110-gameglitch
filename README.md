@@ -59,6 +59,16 @@ tests/test_game_logic.py::test_attempt_limits_order             PASSED [100%]
 ============================== 7 passed in 0.02s ==============================
 ```
 
+## 🔍 Known Limitations
+
+Three bugs were fixed in the UI layer that automated tests cannot verify — they require manual testing by running the app:
+
+- **Play Again reset** — `status`, `score`, and `history` must be manually confirmed to clear after clicking New Game
+- **Attempts counter** — starting at `0` instead of `1` can only be observed by watching the attempts display on first load
+- **Hint text range** — the info message showing the correct range (e.g. "1 to 20" on Easy) can only be confirmed visually in the running app
+
+To manually verify these, run `streamlit run app.py` and test each difficulty and the New Game button directly.
+
 ## 🚀 Stretch Features
 
 - [ ] [If you choose to complete Challenge 4, describe the Enhanced UI changes here — a screenshot is optional]
