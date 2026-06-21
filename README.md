@@ -25,28 +25,38 @@ It wrote the code, ran away, and now the game is unplayable.
 
 ## 📝 Document Your Experience
 
-- [ ] Describe the game's purpose.
-- [ ] Detail which bugs you found.
-- [ ] Explain what fixes you applied.
+- [x] **Game's purpose:** A number guessing game where the player picks a difficulty (Easy, Normal, or Hard), then guesses a secret number within a limited number of attempts. Each wrong guess gives a hint (Too High / Too Low) and affects the score. The game ends when the player guesses correctly or runs out of attempts.
+
+- [x] **Bugs found:** 8 bugs were identified across Phase 1 and Phase 2. The three main bugs were reversed hint messages, swapped difficulty ranges between Normal and Hard, and a broken Play Again button. Five additional bugs were found during repair: the secret being cast to a string on even turns breaking comparisons, attempt limits being out of order, the hint text always showing "1 and 100" regardless of difficulty, the attempts counter starting at 1 instead of 0, and the scoring system awarding +5 points for wrong guesses on even turns.
+
+- [x] **Fixes applied:** All four game logic functions (`get_range_for_difficulty`, `parse_guess`, `check_guess`, `update_score`) were refactored from `app.py` into `logic_utils.py` with the bugs corrected. The hint messages were reversed to the correct direction, the string-cast was removed, difficulty ranges were swapped to the correct order, the Play Again button was updated to reset all session state, attempt limits were reordered, and the scoring logic was made consistent. Every fix was labeled with a `# FIX:` comment in the code.
 
 ## 📸 Demo Walkthrough
 
-Describe your fixed game in numbered steps so a reader can follow along without watching a video:
-
-1. <!-- Describe this step -->
-2. <!-- Describe this step -->
-3. <!-- Describe this step -->
-4. <!-- Describe this step -->
-5. <!-- Add more steps as needed -->
-
-**Screenshot** *(optional)*: <!-- Insert a screenshot of your fixed, winning game here -->
+1. Player opens the app and selects **Normal** difficulty from the sidebar. The sidebar shows the range is **1 to 50** and 7 attempts are allowed.
+2. Player types **25** and clicks Submit. The game returns **"📈 Go HIGHER!"** — the secret number is above 25.
+3. Player types **40** and clicks Submit. The game returns **"📉 Go LOWER!"** — the secret number is below 40.
+4. Player types **32** and clicks Submit. The game returns **"📈 Go HIGHER!"** — narrowing in.
+5. Player types **36** and clicks Submit. The game returns **"🎉 Correct!"** — balloons appear, the secret number is revealed as 36, and a final score is displayed.
+6. Player clicks **New Game**. The score resets to 0, the attempt counter resets, and a fresh secret number is generated within the correct difficulty range.
 
 ## 🧪 Test Results
 
 ```
-# Paste your pytest output here, e.g.:
-# pytest tests/
-# ========================= X passed in 0.XXs =========================
+============================= test session starts =============================
+platform win32 -- Python 3.10.2, pytest-9.1.1, pluggy-1.6.0
+rootdir: C:\Users\Muska\ai110-gameglitch
+collecting ... collected 7 items
+
+tests/test_game_logic.py::test_winning_guess                    PASSED [ 14%]
+tests/test_game_logic.py::test_guess_too_high                   PASSED [ 28%]
+tests/test_game_logic.py::test_guess_too_low                    PASSED [ 42%]
+tests/test_game_logic.py::test_hard_range_is_larger_than_normal PASSED [ 57%]
+tests/test_game_logic.py::test_easy_range_is_smallest           PASSED [ 71%]
+tests/test_game_logic.py::test_wrong_guess_always_loses_points  PASSED [ 85%]
+tests/test_game_logic.py::test_attempt_limits_order             PASSED [100%]
+
+============================== 7 passed in 0.02s ==============================
 ```
 
 ## 🚀 Stretch Features
